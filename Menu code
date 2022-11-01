@@ -1,0 +1,30 @@
+extends Control
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$VBoxContainer/NewGame.grab_focus()
+#This is so you can use the keyboard to move the curser
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_NewGame_pressed():
+	get_tree().change_scene(#YOU WANT TO LINK THE HUB WORLD TO THIS PART)
+
+
+func _on_LoadGame_pressed():
+	get_tree().change_scene(#YOU WANT TO LINK THE CODE TO THE LOAD SCRIPT TO THIS PART)
+
+
+
+func _on_QuitGame_pressed():
+	get_tree().quit()
