@@ -1,9 +1,5 @@
 extends KinematicBody2D
 
-export(PackedScene) var BOTTLE: PackedScene = preload("res://Projectiles/PlayerBottle.tscn")
-
-onready var attackTimer = $AttackTimer
-
 const UP = Vector2(0,-1)
 const GRAVITY = 20
 const MAXFALLSPEED = 500
@@ -17,16 +13,6 @@ var facing_right = true
 func _ready():
 	pass 
 
-func throw_bottle(bottle_direction: Vector2):
-	if BOTTLE:
-		var bottle = BOTTLE.instance()
-		get_tree().current_scene.add_child(bottle)
-		bottle.global_position = self.global_position
-		
-		var bottle_rotation = bottle_direction.angle()
-		bottle.rotation = bottle_rotation
-		
-		attackTimer.start()
 
 func _physics_process(delta):
 	
@@ -64,9 +50,3 @@ func _physics_process(delta):
 	
 	motion = move_and_slide(motion,UP)
 	
-	#throw_bottle does not currently work - line 71, cannot convert argument 1 from bool to Vector2
-	
-	if Input.is_action_just_pressed("action_attack") and attackTimer.is_stopped():
-		var bottle_direction = facing_right
-		throw_bottle(bottle_direction)
-		$AnimationPlayer.play("Throw")
