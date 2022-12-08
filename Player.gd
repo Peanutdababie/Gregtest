@@ -1,5 +1,11 @@
 extends KinematicBody2D
 
+export(PackedScene) var BOTTLE: PackedScene = preload("res://Projectiles/PlayerBottle.tscn")
+
+onready var attackTimer = $AttackTimer
+
+var water_count = 5
+
 const UP = Vector2(0,-1)
 const GRAVITY = 20
 const MAXFALLSPEED = 500
@@ -12,7 +18,6 @@ var facing_right = true
 
 func _ready():
 	pass 
-
 
 func _physics_process(delta):
 	
@@ -50,3 +55,18 @@ func _physics_process(delta):
 	
 	motion = move_and_slide(motion,UP)
 	
+	if Input.is_action_just_pressed("action_attack") and water_count > 0:
+		var bottle_direction = self.global_position.direction_to(get_global_mouse_position())
+		throw_bottle(bottle_direction)
+		water_count = water_count - 1
+
+func throw_bottle(bottle_direction: Vector2):
+	if BOTTLE:
+		var bottle = BOTTLE.instance()
+		get_tree().current_scene.add_child(bottle)
+		bottle.global_position = self.global_position
+		
+		var bottle_rotation = self.global_position.direction_to(get_global_mouse_position()).angle()
+		bottle.rotation = bottle_rotation
+		
+		attackTimer.start()
