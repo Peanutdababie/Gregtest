@@ -6,6 +6,10 @@ onready var attackTimer = $AttackTimer
 
 var water_count = 5
 
+func water_count():
+	if water_count > 20:
+		water_count = 20
+
 const UP = Vector2(0,-1)
 const GRAVITY = 20
 const MAXFALLSPEED = 500
@@ -70,3 +74,25 @@ func throw_bottle(bottle_direction: Vector2):
 		bottle.rotation = bottle_rotation
 		
 		attackTimer.start()
+
+
+func _on_Bottle_Pack_body_entered(body):
+	
+	water_count = water_count + 5
+	water_count()
+	pass # Replace with function body.
+
+
+
+func _on_Bottle_Single_body_entered(body):
+	
+	water_count = water_count + 1
+	water_count()
+	pass # Replace with function body.
+
+
+func _on_Area2D_body_entered(body):
+	
+	water_count = water_count + 20
+	water_count()
+	pass # Replace with function body.
