@@ -33,19 +33,11 @@ func detect_turn_around():
 		is_moving_left = !is_moving_left
 		scale.x = -scale.x
 
-func hit():
-	$AttackDetector.monitoring = true
-
-func end_of_hit():\
-	$AttackDetector.monitoring = false
-	
-func start_run():
-	$AnimationPlayer.play("Walk_Run")
-
 func _on_PlayerDetector_body_entered(body):
-	var new_bullet = BULLET.instance()
-	new_bullet.position = shoot_gun.global_position
-	get_tree().current_scene.add_child(new_bullet)
+	var b = BULLET.instance()
+	b.position = $Position2D.global_position
+	b.rotation = $Position2D.global_rotation
+	get_tree().current_scene.add_child(b)
 	attackTimer.start()
 
 func _on_GunCrab_body_entered(body):
