@@ -1,12 +1,10 @@
 extends Area2D
 
-export(PackedScene) var gun_position: PackedScene = preload("res://GunCrab.tscn")
-
-var speed = 300
+export(int) var SPEED: int = 300
 
 func _physics_process(delta):
-	var direction = gun_position
-	global_position += speed * direction * delta
+	var direction = -Vector2.RIGHT.rotated(rotation)
+	global_position += SPEED * direction * delta
 
 func _on_EnemyBullet_area_entered(area):
 	queue_free()
